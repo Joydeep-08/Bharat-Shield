@@ -81,65 +81,47 @@ def predict(
 # ALL 150 CITIES
 # ============================================================
 
+# ============================================================
+# ALL 150 CITIES
+# FAST NATIONAL SNAPSHOT
+# ============================================================
+
+THERMAL_RISK_FILE = BASE_DIR / "data" / "thermal_risk_150.json"
+
+
 @app.get("/cities")
 def cities():
 
     try:
 
-        with open(CITIES_FILE, "r") as f:
-            geojson = json.load(f)
+        with open(THERMAL_RISK_FILE, "r") as f:
+            data = json.load(f)
 
         results = []
 
-        for feature in geojson["features"]:
-
-            props = feature["properties"]
-
-            coords = feature["geometry"]["coordinates"]
-
-            longitude = float(coords[0])
-            latitude = float(coords[1])
-
-            name = props.get("name", "Unknown")
-            state = props.get("state", "")
-
-            prediction = predict_city(
-                latitude,
-                longitude
-            )
-
-            risk_level = prediction["risk"]
-
-            peak_hi = prediction["prediction_max_heat_index_72h"]
-            current_hi = prediction["current_heat_index"]
-
-            # Risk score used by the existing frontend.
-            # Map thermal severity onto a 0-100 scale.
-            risk_score = round(
-                min(100, max(0, (peak_hi / 50) * 100))
-            )
+        for city in data:
 
             results.append({
-                "name": name,
-                "state": state,
-                "latitude": latitude,
-                "longitude": longitude,
+                "name": city["name"],
+                "state": city["state"],
+                "latitude": city["latitude"],
+                "longitude": city["longitude"],
 
                 "current": {
-                    "risk_level": risk_level,
-                    "risk_score": risk_score,
-                    "heat_index_c": current_hi,
-                    "temperature_c": None,
-                    "humidity_percent": None,
-                    "wind_kmh": None,
-                    "solar_wm2": None,
+                    "risk_level": city["risk_level"],
+                    "risk_score": city["risk_score"],
+                    "heat_index_c": city["heat_index_c"],
+                    "temperature_c": city["temperature_c"],
+                    "humidity_percent": city["humidity_percent"],
+                    "wind_kmh": city["wind_kmh"],
+                    "solar_wm2": city["solar_wm2"],
                 },
 
                 "peak": {
-                    "risk_level": risk_level,
-                    "risk_score": risk_score,
-                    "heat_index_c": peak_hi,
-                    "time": prediction["timestamp"],
+                    "risk_level": city["risk_level"],
+                    "risk_score": city["risk_score"],
+                    "heat_index_c": city["heat_index_c"],
+                    "time": None,
                 },
             })
 
