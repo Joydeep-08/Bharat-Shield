@@ -7,6 +7,10 @@ import requests
 import xgboost as xgb
 
 
+# ============================================================
+# PATHS
+# ============================================================
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 MODEL_FILE = BASE_DIR / "backend" / "models" / "thermal_72h_xgb.json"
@@ -19,6 +23,7 @@ FEATURE_FILE = BASE_DIR / "backend" / "models" / "feature_columns.json"
 # ============================================================
 
 def calculate_heat_index(temp_c, humidity):
+
     temp_f = temp_c * 9 / 5 + 32
 
     simple_hi = (
@@ -59,7 +64,10 @@ def calculate_heat_index(temp_c, humidity):
 # ============================================================
 
 MODEL = xgb.XGBRegressor()
-MODEL.load_model(str(MODEL_FILE))
+
+MODEL.load_model(
+    str(MODEL_FILE)
+)
 
 with open(FEATURE_FILE, "r") as f:
     FEATURE_COLUMNS = json.load(f)
@@ -76,6 +84,7 @@ def fetch_weather(latitude, longitude, timezone="auto"):
     params = {
         "latitude": latitude,
         "longitude": longitude,
+
         "hourly": ",".join([
             "temperature_2m",
             "relative_humidity_2m",
@@ -85,8 +94,11 @@ def fetch_weather(latitude, longitude, timezone="auto"):
             "shortwave_radiation",
             "pressure_msl",
         ]),
+
+        # 4 days historical + 3 days forecast
         "past_days": 4,
-        "forecast_days": 1,
+        "forecast_days": 3,
+
         "timezone": timezone,
     }
 
@@ -111,6 +123,7 @@ def build_live_features(weather, latitude, longitude):
 
     df = pd.DataFrame({
         "time": pd.to_datetime(hourly["time"]),
+
         "temperature": hourly["temperature_2m"],
         "humidity": hourly["relative_humidity_2m"],
         "dew_point": hourly["dew_point_2m"],
@@ -120,7 +133,15 @@ def build_live_features(weather, latitude, longitude):
         "pressure": hourly["pressure_msl"],
     })
 
-    df = df.sort_values("time").reset_index(drop=True)
+    df = (
+        df
+        .sort_values("time")
+        .reset_index(drop=True)
+    )
+
+    # --------------------------------------------------------
+    # LOCATION
+    # --------------------------------------------------------
 
     df["latitude"] = latitude
     df["longitude"] = longitude
@@ -140,9 +161,13 @@ def build_live_features(weather, latitude, longitude):
 
     df["hour"] = df["time"].dt.hour
 
-    df["day_of_year"] = df["time"].dt.dayofyear
+    df["day_of_year"] = (
+        df["time"].dt.dayofyear
+    )
 
-    df["month"] = df["time"].dt.month
+    df["month"] = (
+        df["time"].dt.month
+    )
 
     df["hour_sin"] = np.sin(
         2 * np.pi * df["hour"] / 24
@@ -183,43 +208,63 @@ def build_live_features(weather, latitude, longitude):
     # --------------------------------------------------------
 
     df["temperature_mean_6h"] = (
-        df["temperature"].rolling(6).mean()
+        df["temperature"]
+        .rolling(6)
+        .mean()
     )
 
     df["temperature_mean_24h"] = (
-        df["temperature"].rolling(24).mean()
+        df["temperature"]
+        .rolling(24)
+        .mean()
     )
 
     df["temperature_max_24h"] = (
-        df["temperature"].rolling(24).max()
+        df["temperature"]
+        .rolling(24)
+        .max()
     )
 
     df["temperature_max_72h"] = (
-        df["temperature"].rolling(72).max()
+        df["temperature"]
+        .rolling(72)
+        .max()
     )
 
     df["humidity_mean_24h"] = (
-        df["humidity"].rolling(24).mean()
+        df["humidity"]
+        .rolling(24)
+        .mean()
     )
 
     df["humidity_max_24h"] = (
-        df["humidity"].rolling(24).max()
+        df["humidity"]
+        .rolling(24)
+        .max()
     )
 
     df["heat_index_mean_6h"] = (
-        df["heat_index"].rolling(6).mean()
+        df["heat_index"]
+        .rolling(6)
+        .mean()
     )
 
     df["heat_index_mean_24h"] = (
-        df["heat_index"].rolling(24).mean()
+        df["heat_index"]
+        .rolling(24)
+        .mean()
     )
 
     df["heat_index_max_24h"] = (
-        df["heat_index"].rolling(24).max()
+        df["heat_index"]
+        .rolling(24)
+        .max()
     )
 
     df["heat_index_max_48h"] = (
-        df["heat_index"].rolling(48).max()
+        df["heat_index"]
+        .rolling(48)
+        .max()
     )
 
     # --------------------------------------------------------
@@ -331,10 +376,39 @@ def predict_city(latitude, longitude):
         longitude
     )
 
-    # Latest row with all 61 features available
-    row = df.dropna(
+    # --------------------------------------------------------
+    # DATASET STRUCTURE
+    #
+    # 96 historical hours
+    # 72 forecast hours
+    # Total = 168 hours
+    # --------------------------------------------------------
+
+    historical_df = df.iloc[:96].copy()
+
+    future_df = df.iloc[96:168].copy()
+
+    # --------------------------------------------------------
+    # PREDICTION ORIGIN
+    #
+    # Use the latest historical row with all 61 features.
+    # Do NOT use the final forecast row.
+    # --------------------------------------------------------
+
+    valid_df = historical_df.dropna(
         subset=FEATURE_COLUMNS
-    ).iloc[-1]
+    )
+
+    if valid_df.empty:
+        raise ValueError(
+            "Not enough historical data to build all model features."
+        )
+
+    row = valid_df.iloc[-1]
+
+    # --------------------------------------------------------
+    # MODEL INPUT
+    # --------------------------------------------------------
 
     X = pd.DataFrame(
         [[row[col] for col in FEATURE_COLUMNS]],
@@ -345,61 +419,106 @@ def predict_city(latitude, longitude):
         MODEL.predict(X)[0]
     )
 
+    # --------------------------------------------------------
+    # CURRENT HEAT INDEX
+    # --------------------------------------------------------
+
     current_heat_index = float(
         row["heat_index"]
     )
+
+    # --------------------------------------------------------
+    # FORECAST PEAK TIME
+    #
+    # The model predicts the maximum thermal risk over
+    # the 72-hour horizon.
+    #
+    # We use the actual hourly forecast trajectory to
+    # identify the expected hour of that peak.
+    # --------------------------------------------------------
+
+    if not future_df.empty:
+
+        peak_idx = (
+            future_df["heat_index"]
+            .idxmax()
+        )
+
+        peak_row = future_df.loc[
+            peak_idx
+        ]
+
+        peak_time = str(
+            peak_row["time"]
+        )
+
+    else:
+
+        peak_time = str(
+            row["time"]
+        )
 
     # --------------------------------------------------------
     # RISK CLASSIFICATION
     # --------------------------------------------------------
 
     if prediction >= 40:
+
         risk = "EXTREME"
+
     elif prediction >= 35:
+
         risk = "HIGH"
+
     elif prediction >= 32:
+
         risk = "MODERATE"
+
     else:
+
         risk = "LOW"
 
+    # --------------------------------------------------------
+    # RESPONSE
+    # --------------------------------------------------------
+
     return {
-    "prediction_max_heat_index_72h": round(
-        prediction,
-        2
-    ),
 
-    "current_heat_index": round(
-        current_heat_index,
-        2
-    ),
+        "prediction_max_heat_index_72h": round(
+            prediction,
+            2
+        ),
 
-    "risk": risk,
+        "current_heat_index": round(
+            current_heat_index,
+            2
+        ),
 
-    "timestamp": str(
-        row["time"]
-    ),
+        "risk": risk,
 
-    "latitude": latitude,
+        "timestamp": peak_time,
 
-    "longitude": longitude,
+        "latitude": latitude,
 
-    "temperature_c": round(
-        float(row["temperature"]),
-        1
-    ),
+        "longitude": longitude,
 
-    "humidity_percent": round(
-        float(row["humidity"]),
-        1
-    ),
+        "temperature_c": round(
+            float(row["temperature"]),
+            1
+        ),
 
-    "wind_kmh": round(
-        float(row["wind_speed"]),
-        1
-    ),
+        "humidity_percent": round(
+            float(row["humidity"]),
+            1
+        ),
 
-    "solar_wm2": round(
-        float(row["solar_radiation"]),
-        1
-    ),
-}
+        "wind_kmh": round(
+            float(row["wind_speed"]),
+            1
+        ),
+
+        "solar_wm2": round(
+            float(row["solar_radiation"]),
+            1
+        ),
+    }
