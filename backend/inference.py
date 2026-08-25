@@ -521,4 +521,5 @@ def predict_city(latitude, longitude):
             float(row["solar_radiation"]),
             1
         ),
+        
     }
