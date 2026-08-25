@@ -363,16 +363,43 @@ def predict_city(latitude, longitude):
         risk = "LOW"
 
     return {
-        "prediction_max_heat_index_72h": round(
-            prediction,
-            2
-        ),
-        "current_heat_index": round(
-            current_heat_index,
-            2
-        ),
-        "risk": risk,
-        "timestamp": str(row["time"]),
-        "latitude": latitude,
-        "longitude": longitude,
-    }
+    "prediction_max_heat_index_72h": round(
+        prediction,
+        2
+    ),
+
+    "current_heat_index": round(
+        current_heat_index,
+        2
+    ),
+
+    "risk": risk,
+
+    "timestamp": str(
+        row["time"]
+    ),
+
+    "latitude": latitude,
+
+    "longitude": longitude,
+
+    "temperature_c": round(
+        float(row["temperature"]),
+        1
+    ),
+
+    "humidity_percent": round(
+        float(row["humidity"]),
+        1
+    ),
+
+    "wind_kmh": round(
+        float(row["wind_speed"]),
+        1
+    ),
+
+    "solar_wm2": round(
+        float(row["solar_radiation"]),
+        1
+    ),
+}
