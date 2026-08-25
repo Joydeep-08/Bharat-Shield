@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   Activity,
@@ -9,7 +9,7 @@ import {
   Map as MapIcon,
   MapPin,
   Search,
-  ShieldAlert,
+  ShieldCheck,
   Thermometer,
   Wind,
   Droplets,
@@ -28,10 +28,10 @@ import "leaflet/dist/leaflet.css";
 import "./App.css";
 
 const RISK = {
-  EXTREME: { color: "#ef4444", bg: "#2a0a0a" },
-  HIGH: { color: "#f97316", bg: "#291207" },
-  MODERATE: { color: "#eab308", bg: "#241c05" },
-  LOW: { color: "#22c55e", bg: "#06210f" },
+  EXTREME: { color: "#b91c1c", tint: "#fdecec", border: "#f3b7b7" },
+  HIGH: { color: "#c2560c", tint: "#fdf0e6", border: "#f1c497" },
+  MODERATE: { color: "#92700a", tint: "#fbf5df", border: "#e6d38c" },
+  LOW: { color: "#157a45", tint: "#eaf6ee", border: "#b9ddc4" },
 };
 
 // Standard heat-safety guidance keyed to each risk tier. Static advisory
@@ -90,7 +90,7 @@ function App() {
     };
   }, [cities]);
 
-  // Cities currently at EXTREME or HIGH risk, worst first — feeds the alert ticker.
+  // Cities currently at EXTREME or HIGH risk, worst first — feeds the alert strip.
   const alertCities = useMemo(() => {
     return cities
       .filter((c) => c.current.risk_level === "EXTREME" || c.current.risk_level === "HIGH")
@@ -109,6 +109,9 @@ function App() {
     `${city.name} ${city.state}`.toLowerCase().includes(search.toLowerCase())
   );
 
+  const shownAlertCities = alertCities.slice(0, 5);
+  const remainingAlertCount = alertCities.length - shownAlertCities.length;
+
   return (
     <div className="app">
 
@@ -117,45 +120,40 @@ function App() {
       <header className="header">
         <div className="brand">
           <div className="brand-mark">
-            <ShieldAlert size={20} />
+            <ShieldCheck size={19} />
           </div>
           <div>
             <h1>BHARAT-SHIELD</h1>
-            <p>NATIONAL THERMAL RISK EARLY WARNING</p>
+            <p>National Thermal Risk Early Warning System</p>
           </div>
         </div>
 
         <div className="live">
-          <span className="radar">
-            <span className="radar-sweep" />
-            <span className="radar-core" />
-          </span>
-          LIVE · {stats.total} CITIES
+          <span className="live-dot"></span>
+          LIVE · {stats.total} CITIES MONITORED
         </div>
       </header>
 
 
-      {/* ================= ALERT TICKER ================= */}
+      {/* ================= ALERT STRIP (static) ================= */}
 
       {alertCities.length > 0 && (
-        <div className="ticker" role="status" aria-label="Active heat alerts">
-          <div className="ticker-tag">
-            <AlertTriangle size={13} />
-            {alertCities.length} ACTIVE ALERT{alertCities.length > 1 ? "S" : ""}
-          </div>
-          <div className="ticker-track">
-            <ul>
-              {[...alertCities, ...alertCities].map((city, i) => (
-                <li key={`${city.name}-${i}`}>
-                  <b>{city.name}</b>
-                  {city.state}
-                  <span className="mono">
-                    {city.current.risk_score} · {city.current.risk_level}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div className="alert-strip" role="status" aria-label="Active heat alerts">
+          <strong>
+            <AlertTriangle size={14} />
+            {alertCities.length} {alertCities.length > 1 ? "cities" : "city"} under EXTREME or HIGH alert:
+          </strong>
+          <span className="alert-cities">
+            {shownAlertCities.map((c, i) => (
+              <span key={c.name}>
+                <b>{c.name}</b>
+                {i < shownAlertCities.length - 1 ? ", " : ""}
+              </span>
+            ))}
+            {remainingAlertCount > 0 && (
+              <span className="alert-more"> +{remainingAlertCount} more</span>
+            )}
+          </span>
         </div>
       )}
 
@@ -172,25 +170,25 @@ function App() {
           label="Extreme Risk"
           value={stats.extreme}
           total={stats.total}
-          color="#ef4444"
+          color="#b91c1c"
         />
         <Stat
           label="High Risk"
           value={stats.high}
           total={stats.total}
-          color="#f97316"
+          color="#c2560c"
         />
         <Stat
           label="Moderate"
           value={stats.moderate}
           total={stats.total}
-          color="#eab308"
+          color="#92700a"
         />
         <Stat
           label="Low Risk"
           value={stats.low}
           total={stats.total}
-          color="#22c55e"
+          color="#157a45"
         />
       </section>
 
@@ -205,7 +203,7 @@ function App() {
 
           <div className="section-heading">
             <div>
-              <p className="eyebrow">NATIONAL MONITOR</p>
+              <p className="eyebrow">National Monitor</p>
               <h2>India Thermal Risk</h2>
               {nationalPeak && (
                 <p className="national-peak">
@@ -266,52 +264,37 @@ function App() {
                   const risk = formatRisk(city.current.risk_level);
                   const radius =
                     city.current.risk_level === "EXTREME"
-                      ? 10
+                      ? 9
                       : city.current.risk_level === "HIGH"
-                      ? 8
+                      ? 7.5
                       : city.current.risk_level === "MODERATE"
-                      ? 7
-                      : 6;
+                      ? 6.5
+                      : 5.5;
 
                   return (
-                    <Fragment key={city.name}>
-                      {city.current.risk_level === "EXTREME" && (
-                        <CircleMarker
-                          center={[city.latitude, city.longitude]}
-                          radius={10}
-                          pathOptions={{
-                            className: "pulse-marker",
-                            color: risk.color,
-                            fillOpacity: 0,
-                            weight: 1.5,
-                          }}
-                          interactive={false}
-                        />
-                      )}
-
-                      <CircleMarker
-                        center={[city.latitude, city.longitude]}
-                        radius={radius}
-                        pathOptions={{
-                          color: risk.color,
-                          fillColor: risk.color,
-                          fillOpacity: 0.85,
-                          weight: 1.5,
-                        }}
-                        eventHandlers={{ click: () => setSelected(city) }}
-                      >
-                        <Tooltip direction="top" offset={[0, -6]}>
-                          <div className="map-tooltip">
-                            <strong>{city.name}</strong>
-                            <span>{city.state}</span>
-                            <b style={{ color: risk.color }}>
-                              {city.current.risk_score} • {city.current.risk_level}
-                            </b>
-                            <small>HI {city.current.heat_index_c}°C</small>
-                          </div>
-                        </Tooltip>
-                      </CircleMarker>
-                    </Fragment>
+                    <CircleMarker
+                      key={city.name}
+                      center={[city.latitude, city.longitude]}
+                      radius={radius}
+                      pathOptions={{
+                        color: "#ffffff",
+                        fillColor: risk.color,
+                        fillOpacity: 0.9,
+                        weight: 1.5,
+                      }}
+                      eventHandlers={{ click: () => setSelected(city) }}
+                    >
+                      <Tooltip direction="top" offset={[0, -6]}>
+                        <div className="map-tooltip">
+                          <strong>{city.name}</strong>
+                          <span>{city.state}</span>
+                          <b style={{ color: risk.color }}>
+                            {city.current.risk_score} • {city.current.risk_level}
+                          </b>
+                          <small>HI {city.current.heat_index_c}°C</small>
+                        </div>
+                      </Tooltip>
+                    </CircleMarker>
                   );
                 })}
               </MapContainer>
@@ -325,10 +308,10 @@ function App() {
               </div>
 
               <div className="map-legend">
-                <div><span style={{ background: "#ef4444" }} />Extreme</div>
-                <div><span style={{ background: "#f97316" }} />High</div>
-                <div><span style={{ background: "#eab308" }} />Moderate</div>
-                <div><span style={{ background: "#22c55e" }} />Low</div>
+                <div><span style={{ background: "#b91c1c" }} />Extreme</div>
+                <div><span style={{ background: "#c2560c" }} />High</div>
+                <div><span style={{ background: "#92700a" }} />Moderate</div>
+                <div><span style={{ background: "#157a45" }} />Low</div>
               </div>
             </div>
           ) : (
@@ -413,15 +396,13 @@ function Stat({ label, value, color, icon, total }) {
   const pct = total ? Math.round((value / total) * 100) : null;
 
   return (
-    <div className="stat">
+    <div className="stat" style={{ borderLeftColor: color || "transparent" }}>
       <div className="stat-top">
         {icon}
         <span className="stat-label">{label}</span>
       </div>
 
-      <div className="stat-value mono" style={{ color: color || "var(--text-h)" }}>
-        {value}
-      </div>
+      <div className="stat-value mono">{value}</div>
 
       {pct !== null && (
         <div className="stat-bar">
@@ -470,7 +451,7 @@ function CityPanel({ city, onClose }) {
       {/* PANEL HEADER */}
       <div className="panel-header">
         <div>
-          <p className="eyebrow">CITY INTELLIGENCE</p>
+          <p className="eyebrow">City Intelligence</p>
           <h2>{city.name}</h2>
           <p className="state">{city.state}</p>
         </div>
@@ -482,14 +463,14 @@ function CityPanel({ city, onClose }) {
 
 
       {/* RISK HERO */}
-      <div className="risk-hero" style={{ borderColor: risk.color, background: risk.bg }}>
+      <div className="risk-hero" style={{ borderColor: risk.border, background: risk.tint }}>
         <div>
           <div className="risk-number mono">{current.risk_score}</div>
           <div className="risk-label" style={{ color: risk.color }}>
             {current.risk_level} RISK
           </div>
         </div>
-        <AlertTriangle size={30} color={risk.color} />
+        <AlertTriangle size={28} color={risk.color} />
       </div>
 
 
@@ -516,7 +497,7 @@ function CityPanel({ city, onClose }) {
       <div className="peak-card">
         <div className="peak-title">
           <Clock3 size={15} />
-          72-HOUR PEAK
+          72-Hour Peak
         </div>
 
         <div className="peak-risk">{peak.risk_score}</div>
@@ -542,8 +523,8 @@ function CityPanel({ city, onClose }) {
       {/* ACTION PLAN */}
       <div className="action-plan">
         <div className="action-plan-head" style={{ color: risk.color }}>
-          <ShieldAlert size={13} />
-          RECOMMENDED ACTIONS
+          <ShieldCheck size={13} />
+          Recommended Actions
         </div>
         <ul>
           {actions.map((action, i) => (
@@ -555,7 +536,7 @@ function CityPanel({ city, onClose }) {
 
       {/* EXPLANATION */}
       <div className="explanation">
-        <p className="eyebrow">INITIAL ANALYSIS</p>
+        <p className="eyebrow">Initial Analysis</p>
         <p>
           Thermal risk is being evaluated using apparent temperature and
           current environmental conditions.
