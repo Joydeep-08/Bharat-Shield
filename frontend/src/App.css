@@ -5,7 +5,6 @@
   background: var(--bg);
 }
 
-
 /* =========================================================
    HEADER
 ========================================================= */
@@ -23,7 +22,7 @@
   background: var(--panel);
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 30;
 }
 
 .brand {
@@ -86,45 +85,140 @@
   }
 }
 
-
 /* =========================================================
-   ALERT STRIP (static — not a scrolling marquee)
+   NEWS-STYLE CONTINUOUS TICKER
 ========================================================= */
 
-.alert-strip {
+.ticker-strip {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: stretch;
+  height: 38px;
+  background: #111a14;
+  border-bottom: 1px solid #233027;
+  overflow: hidden;
+  position: relative;
+  z-index: 25;
+}
+
+.ticker-badge {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-
-  padding: 10px 28px;
-  border-bottom: 1px solid var(--extreme-border);
-  background: var(--extreme-tint);
-  color: #7f1d1d;
-  font-size: 12.5px;
+  gap: 8px;
+  padding: 0 16px;
+  background: #b91c1c;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  z-index: 2;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.25);
 }
 
-.alert-strip strong {
+.ticker-live-icon {
+  animation: soft-pulse 1.6s ease-in-out infinite;
+}
+
+.ticker-viewport {
+  flex: 1;
   display: flex;
   align-items: center;
-  gap: 6px;
-  color: var(--extreme);
-  font-weight: 700;
+  overflow: hidden;
+  position: relative;
 }
 
-.alert-strip .alert-cities {
-  color: #7f1d1d;
+.ticker-viewport::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 32px;
+  background: linear-gradient(90deg, transparent, #111a14);
+  pointer-events: none;
+  z-index: 1;
 }
 
-.alert-strip .alert-cities b {
+.ticker-track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: ticker-scroll 32s linear infinite;
+  width: max-content;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  border: 0;
+  padding: 0 14px;
+  color: #e5ede7;
+  font-size: 11.5px;
+  font-family: var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.ticker-item:hover {
+  opacity: 0.8;
+}
+
+.ticker-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ticker-city {
   font-weight: 600;
+  color: #ffffff;
 }
 
-.alert-strip .alert-more {
-  color: #9a4a4a;
+.ticker-state {
+  color: #93a398;
+  font-size: 11px;
 }
 
+.ticker-level-tag {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid;
+  letter-spacing: 0.04em;
+}
+
+.ticker-temp {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #ccd7ce;
+}
+
+.ticker-divider {
+  margin-left: 10px;
+  color: #384d3f;
+  font-size: 10px;
+}
 
 /* =========================================================
    STATS
@@ -186,7 +280,6 @@
   height: 100%;
   border-radius: 2px;
 }
-
 
 /* =========================================================
    MAIN
@@ -254,8 +347,146 @@
   gap: 10px;
 }
 
+/* =========================================================
+   SEARCH & AUTOCOMPLETE
+========================================================= */
 
-/* view toggle */
+.search-container {
+  position: relative;
+}
+
+.search-box {
+  width: 230px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px 0 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 7px;
+  background: var(--panel);
+  color: var(--text-dim);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.search-box:focus-within {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 2px var(--brand-tint);
+}
+
+.search-box input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text-h);
+  font-size: 13px;
+}
+
+.search-box input::placeholder {
+  color: var(--text-dim);
+}
+
+.search-clear {
+  border: 0;
+  background: transparent;
+  color: var(--text-dim);
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.search-clear:hover {
+  color: var(--text-h);
+  background: var(--panel-2);
+}
+
+.search-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 290px;
+  background: var(--panel);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background: var(--panel-2);
+}
+
+.dropdown-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.dropdown-info strong {
+  font-size: 12.5px;
+  color: var(--text-h);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-info span {
+  font-size: 10.5px;
+  color: var(--text-dim);
+}
+
+.dropdown-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.dropdown-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+
+.dropdown-temp {
+  font-size: 11px;
+  color: var(--text-h);
+  font-weight: 600;
+}
+
+.dropdown-empty {
+  padding: 14px 12px;
+  color: var(--text-dim);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* =========================================================
+   VIEW TOGGLE
+========================================================= */
 
 .view-toggle {
   display: flex;
@@ -285,38 +516,8 @@
   box-shadow: var(--shadow-sm);
 }
 
-
-/* search */
-
-.search-box {
-  width: 216px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 12px;
-  border: 1px solid var(--border-strong);
-  border-radius: 7px;
-  background: var(--panel);
-  color: var(--text-dim);
-}
-
-.search-box input {
-  width: 100%;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--text-h);
-  font-size: 13px;
-}
-
-.search-box input::placeholder {
-  color: var(--text-dim);
-}
-
-
 /* =========================================================
-   CITY LIST VIEW (alternative to map, same data)
+   CITY LIST VIEW
 ========================================================= */
 
 .city-grid {
@@ -410,7 +611,6 @@
   font-size: 13px;
 }
 
-
 /* =========================================================
    SIDE PANEL
 ========================================================= */
@@ -453,14 +653,13 @@
   line-height: 1.6;
 }
 
-
 /* =========================================================
    CITY PANEL
 ========================================================= */
 
 .city-panel {
   padding: 24px;
-  max-height: calc(100vh - 72px - 40px);
+  max-height: calc(100vh - 72px - 38px);
   overflow-y: auto;
 }
 
@@ -493,7 +692,6 @@
   border-color: var(--border-strong);
 }
 
-
 /* risk hero */
 
 .risk-hero {
@@ -521,7 +719,6 @@
   font-weight: 700;
   letter-spacing: 0.1em;
 }
-
 
 /* metrics */
 
@@ -563,7 +760,6 @@
   font-weight: 600;
 }
 
-
 /* heat index */
 
 .info-card {
@@ -590,7 +786,6 @@
   font-size: 19px;
   color: var(--text-h);
 }
-
 
 /* 72h peak */
 
@@ -646,7 +841,6 @@
   font-weight: 600;
 }
 
-
 /* =========================================================
    ACTION PLAN
 ========================================================= */
@@ -699,7 +893,6 @@
   background: var(--brand);
 }
 
-
 /* explanation */
 
 .explanation {
@@ -715,7 +908,6 @@
   font-size: 12px;
   line-height: 1.65;
 }
-
 
 /* =========================================================
    FOOTER
@@ -767,7 +959,6 @@ footer > div {
   margin-left: auto;
   color: var(--text-dim);
 }
-
 
 /* =========================================================
    INDIA MAP
@@ -915,7 +1106,6 @@ footer > div {
   border-radius: 50%;
 }
 
-
 /* =========================================================
    RESPONSIVE
 ========================================================= */
@@ -957,8 +1147,17 @@ footer > div {
     gap: 10px;
   }
 
-  .alert-strip {
-    padding: 10px 16px;
+  .ticker-strip {
+    height: auto;
+    flex-direction: column;
+  }
+
+  .ticker-badge {
+    padding: 6px 12px;
+  }
+
+  .ticker-viewport {
+    padding: 6px 0;
   }
 
   .stats {
@@ -981,7 +1180,15 @@ footer > div {
     align-items: flex-start;
   }
 
+  .search-container {
+    width: 100%;
+  }
+
   .search-box {
+    width: 100%;
+  }
+
+  .search-dropdown {
     width: 100%;
   }
 

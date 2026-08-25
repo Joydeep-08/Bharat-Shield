@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
-
+import { useEffect, useMemo, useState, useRef } from "react";
 import {
   Activity,
   AlertTriangle,
@@ -15,6 +14,7 @@ import {
   Droplets,
   Sun,
   X,
+  Radio,
 } from "lucide-react";
 
 import {
@@ -34,9 +34,6 @@ const RISK = {
   LOW: { color: "#157a45", tint: "#eaf6ee", border: "#b9ddc4" },
 };
 
-// Standard heat-safety guidance keyed to each risk tier. Static advisory
-// copy — not derived from the forecast JSON — so it never varies from
-// what the model actually measured.
 const ACTION_PLAN = {
   EXTREME: [
     "Issue public alert: avoid outdoor exposure between 12:00–16:00.",
@@ -69,21 +66,34 @@ function App() {
   const [cities, setCities] = useState([]);
   const [selected, setSelected] = useState(null);
   const [search, setSearch] = useState("");
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [view, setView] = useState("map"); // "map" | "list"
+  const searchRef = useRef(null);
 
- useEffect(() => {
-  fetch("https://bharat-shield.onrender.com/cities")
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(`API error: ${res.status}`);
+  useEffect(() => {
+    fetch("https://bharat-shield.onrender.com/cities")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`API error: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => setCities(data))
+      .catch((err) =>
+        console.error("Failed to load live city data:", err)
+      );
+  }, []);
+
+  // Close search dropdown on click outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsSearchFocused(false);
       }
-      return res.json();
-    })
-    .then((data) => setCities(data))
-    .catch((err) =>
-      console.error("Failed to load live city data:", err)
-    );
-}, []);
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const stats = useMemo(() => {
     return {
@@ -95,14 +105,14 @@ function App() {
     };
   }, [cities]);
 
-  // Cities currently at EXTREME or HIGH risk, worst first — feeds the alert strip.
+  // Cities currently at EXTREME or HIGH risk, worst first
   const alertCities = useMemo(() => {
     return cities
       .filter((c) => c.current.risk_level === "EXTREME" || c.current.risk_level === "HIGH")
       .sort((a, b) => b.current.risk_score - a.current.risk_score);
   }, [cities]);
 
-  // Single worst-affected city right now — feeds the national summary line.
+  // Highest risk city
   const nationalPeak = useMemo(() => {
     if (cities.length === 0) return null;
     return cities.reduce((worst, c) =>
@@ -110,18 +120,22 @@ function App() {
     );
   }, [cities]);
 
-  const filteredCities = cities.filter((city) =>
-    `${city.name} ${city.state}`.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredCities = useMemo(() => {
+    return cities.filter((city) =>
+      `${city.name} ${city.state}`.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [cities, search]);
 
-  const shownAlertCities = alertCities.slice(0, 5);
-  const remainingAlertCount = alertCities.length - shownAlertCities.length;
+  const handleSelectCity = (city) => {
+    setSelected(city);
+    setSearch(city.name);
+    setIsSearchFocused(false);
+  };
 
   return (
     <div className="app">
 
       {/* ================= HEADER ================= */}
-
       <header className="header">
         <div className="brand">
           <div className="brand-mark">
@@ -139,32 +153,50 @@ function App() {
         </div>
       </header>
 
-
-      {/* ================= ALERT STRIP (static) ================= */}
-
+      {/* ================= NEWS BULLETIN / TICKER ================= */}
       {alertCities.length > 0 && (
-        <div className="alert-strip" role="status" aria-label="Active heat alerts">
-          <strong>
-            <AlertTriangle size={14} />
-            {alertCities.length} {alertCities.length > 1 ? "cities" : "city"} under EXTREME or HIGH alert:
-          </strong>
-          <span className="alert-cities">
-            {shownAlertCities.map((c, i) => (
-              <span key={c.name}>
-                <b>{c.name}</b>
-                {i < shownAlertCities.length - 1 ? ", " : ""}
-              </span>
-            ))}
-            {remainingAlertCount > 0 && (
-              <span className="alert-more"> +{remainingAlertCount} more</span>
-            )}
-          </span>
+        <div className="ticker-strip" role="region" aria-label="National Heat-Risk Ticker">
+          <div className="ticker-badge">
+            <Radio size={13} className="ticker-live-icon" />
+            <span>NATIONAL BULLETIN</span>
+          </div>
+
+          <div className="ticker-viewport">
+            <div className="ticker-track">
+              {/* Double-render for infinite continuous scroll loop */}
+              {[...alertCities, ...alertCities].map((c, idx) => {
+                const risk = formatRisk(c.current.risk_level);
+                return (
+                  <button
+                    key={`${c.name}-${idx}`}
+                    className="ticker-item"
+                    onClick={() => setSelected(c)}
+                    type="button"
+                  >
+                    <span className="ticker-dot" style={{ background: risk.color }}></span>
+                    <span className="ticker-city">{c.name}</span>
+                    <span className="ticker-state">({c.state})</span>
+                    <span
+                      className="ticker-level-tag"
+                      style={{
+                        color: risk.color,
+                        background: risk.tint,
+                        borderColor: risk.border,
+                      }}
+                    >
+                      {c.current.risk_level} {c.current.risk_score}
+                    </span>
+                    <span className="ticker-temp">{c.current.temperature_c}°C</span>
+                    <span className="ticker-divider">•</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       )}
 
-
       {/* ================= STATS ================= */}
-
       <section className="stats">
         <Stat
           label="Cities Monitored"
@@ -197,13 +229,10 @@ function App() {
         />
       </section>
 
-
       {/* ================= MAIN ================= */}
-
       <main className="main">
 
         {/* ================= MAP / LIST SECTION ================= */}
-
         <section className="map-section">
 
           <div className="section-heading">
@@ -222,14 +251,72 @@ function App() {
             </div>
 
             <div className="heading-controls">
-              <div className="search-box">
-                <Search size={16} />
-                <input
-                  placeholder="Search city or state..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  aria-label="Search city or state"
-                />
+              {/* Autocomplete Search Box */}
+              <div className="search-container" ref={searchRef}>
+                <div className="search-box">
+                  <Search size={16} />
+                  <input
+                    placeholder="Search city or state..."
+                    value={search}
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                      setIsSearchFocused(true);
+                    }}
+                    onFocus={() => setIsSearchFocused(true)}
+                    aria-label="Search city or state"
+                  />
+                  {search && (
+                    <button
+                      className="search-clear"
+                      onClick={() => {
+                        setSearch("");
+                        setIsSearchFocused(false);
+                      }}
+                      aria-label="Clear search"
+                    >
+                      <X size={14} />
+                    </button>
+                  )}
+                </div>
+
+                {isSearchFocused && search.trim().length > 0 && (
+                  <div className="search-dropdown">
+                    {filteredCities.length === 0 ? (
+                      <div className="dropdown-empty">No matching cities found</div>
+                    ) : (
+                      filteredCities.slice(0, 7).map((city) => {
+                        const risk = formatRisk(city.current.risk_level);
+                        return (
+                          <div
+                            key={city.name}
+                            className="dropdown-item"
+                            onClick={() => handleSelectCity(city)}
+                          >
+                            <div className="dropdown-info">
+                              <strong>{city.name}</strong>
+                              <span>{city.state}</span>
+                            </div>
+                            <div className="dropdown-meta">
+                              <span
+                                className="dropdown-badge mono"
+                                style={{
+                                  color: risk.color,
+                                  background: risk.tint,
+                                  borderColor: risk.border,
+                                }}
+                              >
+                                {city.current.risk_level} {city.current.risk_score}
+                              </span>
+                              <span className="dropdown-temp mono">
+                                {city.current.temperature_c}°C
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="view-toggle" role="group" aria-label="Switch view">
@@ -248,7 +335,6 @@ function App() {
               </div>
             </div>
           </div>
-
 
           {view === "map" ? (
             <div className="map-wrapper">
@@ -366,9 +452,7 @@ function App() {
           )}
         </section>
 
-
         {/* ================= RIGHT PANEL ================= */}
-
         <aside className="side-panel">
           {!selected ? (
             <EmptyPanel />
@@ -378,9 +462,7 @@ function App() {
         </aside>
       </main>
 
-
       {/* ================= FOOTER ================= */}
-
       <footer>
         <div><span className="legend extreme"></span>Extreme</div>
         <div><span className="legend high"></span>High</div>
@@ -392,11 +474,9 @@ function App() {
   );
 }
 
-
 /* =====================================================
    STAT COMPONENT
 ===================================================== */
-
 function Stat({ label, value, color, icon, total }) {
   const pct = total ? Math.round((value / total) * 100) : null;
 
@@ -418,11 +498,9 @@ function Stat({ label, value, color, icon, total }) {
   );
 }
 
-
 /* =====================================================
    EMPTY PANEL
 ===================================================== */
-
 function EmptyPanel() {
   return (
     <div className="empty-panel">
@@ -431,18 +509,16 @@ function EmptyPanel() {
       </div>
       <h3>Select a city</h3>
       <p>
-        Choose any monitored city from the map or list to inspect its
+        Choose any monitored city from the map, list, or news bulletin to inspect its
         current conditions, forecast, and recommended response.
       </p>
     </div>
   );
 }
 
-
 /* =====================================================
    CITY INTELLIGENCE PANEL
 ===================================================== */
-
 function CityPanel({ city, onClose }) {
   const current = city.current;
   const peak = city.peak;
@@ -452,8 +528,6 @@ function CityPanel({ city, onClose }) {
 
   return (
     <div className="city-panel">
-
-      {/* PANEL HEADER */}
       <div className="panel-header">
         <div>
           <p className="eyebrow">City Intelligence</p>
@@ -466,8 +540,6 @@ function CityPanel({ city, onClose }) {
         </button>
       </div>
 
-
-      {/* RISK HERO */}
       <div className="risk-hero" style={{ borderColor: risk.border, background: risk.tint }}>
         <div>
           <div className="risk-number mono">{current.risk_score}</div>
@@ -478,8 +550,6 @@ function CityPanel({ city, onClose }) {
         <AlertTriangle size={28} color={risk.color} />
       </div>
 
-
-      {/* METRICS */}
       <div className="metrics">
         <Metric icon={<Thermometer size={16} />} label="Temperature" value={`${current.temperature_c}°C`} />
         <Metric icon={<Droplets size={16} />} label="Humidity" value={`${current.humidity_percent}%`} />
@@ -487,8 +557,6 @@ function CityPanel({ city, onClose }) {
         <Metric icon={<Sun size={16} />} label="Solar" value={`${current.solar_wm2} W/m²`} />
       </div>
 
-
-      {/* HEAT INDEX */}
       <div className="info-card">
         <div>
           <span>Heat Index</span>
@@ -497,8 +565,6 @@ function CityPanel({ city, onClose }) {
         <ArrowUpRight size={17} color="var(--text-dim)" />
       </div>
 
-
-      {/* 72 HOUR PEAK */}
       <div className="peak-card">
         <div className="peak-title">
           <Clock3 size={15} />
@@ -524,8 +590,6 @@ function CityPanel({ city, onClose }) {
         </div>
       </div>
 
-
-      {/* ACTION PLAN */}
       <div className="action-plan">
         <div className="action-plan-head" style={{ color: risk.color }}>
           <ShieldCheck size={13} />
@@ -538,8 +602,6 @@ function CityPanel({ city, onClose }) {
         </ul>
       </div>
 
-
-      {/* EXPLANATION */}
       <div className="explanation">
         <p className="eyebrow">Initial Analysis</p>
         <p>
@@ -550,11 +612,6 @@ function CityPanel({ city, onClose }) {
     </div>
   );
 }
-
-
-/* =====================================================
-   METRIC COMPONENT
-===================================================== */
 
 function Metric({ icon, label, value }) {
   return (
