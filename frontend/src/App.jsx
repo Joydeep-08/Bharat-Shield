@@ -71,14 +71,19 @@ function App() {
   const [search, setSearch] = useState("");
   const [view, setView] = useState("map"); // "map" | "list"
 
-  useEffect(() => {
-    fetch("/thermal_forecast_150.json")
-      .then((res) => res.json())
-      .then((data) => setCities(data))
-      .catch((err) =>
-        console.error("Failed to load city data:", err)
-      );
-  }, []);
+ useEffect(() => {
+  fetch("https://bharat-shield.onrender.com/cities")
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`API error: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((data) => setCities(data))
+    .catch((err) =>
+      console.error("Failed to load live city data:", err)
+    );
+}, []);
 
   const stats = useMemo(() => {
     return {
