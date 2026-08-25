@@ -447,7 +447,7 @@ def process_city(city):
                 and attempt < max_attempts - 1
             ):
 
-                wait_time = 2 ** attempt
+                wait_time = 5 * (attempt + 1)
 
                 print(
                     f"[RETRY] "
@@ -502,7 +502,7 @@ def refresh_city_cache():
         # Moderate concurrency to avoid
         # hammering Open-Meteo.
         with ThreadPoolExecutor(
-            max_workers=5
+            max_workers=2
         ) as executor:
 
             futures = {
