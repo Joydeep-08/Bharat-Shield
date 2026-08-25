@@ -1,0 +1,2405 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Mumbai",
+    "state": "Maharashtra",
+    "population": 12442373,
+    "tier": "metro"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.8777,
+     19.076
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Delhi",
+    "state": "Delhi",
+    "population": 11034555,
+    "tier": "metro,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.1025,
+     28.7041
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bengaluru",
+    "state": "Karnataka",
+    "population": 8443675,
+    "tier": "metro,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.5946,
+     12.9716
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Hyderabad",
+    "state": "Telangana",
+    "population": 6993262,
+    "tier": "metro,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.4867,
+     17.385
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Ahmedabad",
+    "state": "Gujarat",
+    "population": 5577940,
+    "tier": "metro"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.5714,
+     23.0225
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Chennai",
+    "state": "Tamil Nadu",
+    "population": 4646732,
+    "tier": "metro,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     80.2707,
+     13.0827
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kolkata",
+    "state": "West Bengal",
+    "population": 4496694,
+    "tier": "metro,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     88.3639,
+     22.5726
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Surat",
+    "state": "Gujarat",
+    "population": 4467797,
+    "tier": "metro,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.8311,
+     21.1702
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Pune",
+    "state": "Maharashtra",
+    "population": 3124458,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.8567,
+     18.5204
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Jaipur",
+    "state": "Rajasthan",
+    "population": 3046163,
+    "tier": "major,capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     75.7873,
+     26.9124
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Lucknow",
+    "state": "Uttar Pradesh",
+    "population": 2817105,
+    "tier": "major,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     80.9462,
+     26.8467
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kanpur",
+    "state": "Uttar Pradesh",
+    "population": 2765348,
+    "tier": "major,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     80.3319,
+     26.4499
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Nagpur",
+    "state": "Maharashtra",
+    "population": 2405665,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.0882,
+     21.1458
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Indore",
+    "state": "Madhya Pradesh",
+    "population": 1964086,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     75.8577,
+     22.7196
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Thane",
+    "state": "Maharashtra",
+    "population": 1841488,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9781,
+     19.2183
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bhopal",
+    "state": "Madhya Pradesh",
+    "population": 1798218,
+    "tier": "major,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.4126,
+     23.2599
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Visakhapatnam",
+    "state": "Andhra Pradesh",
+    "population": 1728128,
+    "tier": "major,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     83.2185,
+     17.6868
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Pimpri-Chinchwad",
+    "state": "Maharashtra",
+    "population": 1727692,
+    "tier": "major,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.7997,
+     18.6298
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Patna",
+    "state": "Bihar",
+    "population": 1684222,
+    "tier": "major,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.1376,
+     25.5941
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Vadodara",
+    "state": "Gujarat",
+    "population": 1670806,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.1812,
+     22.3072
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Ghaziabad",
+    "state": "Uttar Pradesh",
+    "population": 1648643,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.4538,
+     28.6692
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Ludhiana",
+    "state": "Punjab",
+    "population": 1618879,
+    "tier": "major,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     75.8573,
+     30.901
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Agra",
+    "state": "Uttar Pradesh",
+    "population": 1585704,
+    "tier": "major,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.0081,
+     27.1767
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Nashik",
+    "state": "Maharashtra",
+    "population": 1486053,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.7898,
+     19.9975
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Faridabad",
+    "state": "Haryana",
+    "population": 1414050,
+    "tier": "major,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.3178,
+     28.4089
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Meerut",
+    "state": "Uttar Pradesh",
+    "population": 1305429,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.7064,
+     28.9845
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Rajkot",
+    "state": "Gujarat",
+    "population": 1286678,
+    "tier": "major,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     70.8022,
+     22.3039
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kalyan-Dombivli",
+    "state": "Maharashtra",
+    "population": 1247327,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.1305,
+     19.2403
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Vasai-Virar",
+    "state": "Maharashtra",
+    "population": 1222390,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.8397,
+     19.4919
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Varanasi",
+    "state": "Uttar Pradesh",
+    "population": 1198491,
+    "tier": "major,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.9739,
+     25.3176
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Srinagar",
+    "state": "Jammu and Kashmir",
+    "population": 1180570,
+    "tier": "major,capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     74.7973,
+     34.0837
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Chhatrapati Sambhajinagar",
+    "state": "Maharashtra",
+    "population": 1175116,
+    "tier": "major,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     75.3433,
+     19.8762
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Dhanbad",
+    "state": "Jharkhand",
+    "population": 1162472,
+    "tier": "major,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     86.4304,
+     23.7957
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Amritsar",
+    "state": "Punjab",
+    "population": 1132383,
+    "tier": "major,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     74.8723,
+     31.634
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Navi Mumbai",
+    "state": "Maharashtra",
+    "population": 1120547,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.0297,
+     19.033
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Prayagraj",
+    "state": "Uttar Pradesh",
+    "population": 1112544,
+    "tier": "major,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.8463,
+     25.4358
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Howrah",
+    "state": "West Bengal",
+    "population": 1077075,
+    "tier": "major,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     88.2636,
+     22.5958
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Ranchi",
+    "state": "Jharkhand",
+    "population": 1073427,
+    "tier": "major,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.3096,
+     23.3441
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Jabalpur",
+    "state": "Madhya Pradesh",
+    "population": 1055525,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.9864,
+     23.1815
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Gwalior",
+    "state": "Madhya Pradesh",
+    "population": 1054420,
+    "tier": "major,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.1828,
+     26.2183
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Coimbatore",
+    "state": "Tamil Nadu",
+    "population": 1050721,
+    "tier": "major,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.9558,
+     11.0168
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Vijayawada",
+    "state": "Andhra Pradesh",
+    "population": 1034358,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     80.648,
+     16.5062
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Jodhpur",
+    "state": "Rajasthan",
+    "population": 1033756,
+    "tier": "major,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.0243,
+     26.2389
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Madurai",
+    "state": "Tamil Nadu",
+    "population": 1017865,
+    "tier": "major,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.1198,
+     9.9252
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Raipur",
+    "state": "Chhattisgarh",
+    "population": 1010433,
+    "tier": "major,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.6296,
+     21.2514
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kota",
+    "state": "Rajasthan",
+    "population": 1001694,
+    "tier": "major"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     75.8648,
+     25.2138
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Chandigarh",
+    "state": "Chandigarh",
+    "population": 961587,
+    "tier": "major,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.7794,
+     30.7333
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Guwahati",
+    "state": "Assam",
+    "population": 957352,
+    "tier": "major,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     91.7362,
+     26.1445
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Solapur",
+    "state": "Maharashtra",
+    "population": 951558,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     75.9064,
+     17.6599
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Hubli-Dharwad",
+    "state": "Karnataka",
+    "population": 943788,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     75.124,
+     15.3647
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Mysuru",
+    "state": "Karnataka",
+    "population": 893062,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.6394,
+     12.2958
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Moradabad",
+    "state": "Uttar Pradesh",
+    "population": 887871,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.7733,
+     28.8386
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Gurugram",
+    "state": "Haryana",
+    "population": 876969,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.0266,
+     28.4595
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Aligarh",
+    "state": "Uttar Pradesh",
+    "population": 874408,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.088,
+     27.8974
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Jalandhar",
+    "state": "Punjab",
+    "population": 862886,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     75.5762,
+     31.326
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Tiruchirappalli",
+    "state": "Tamil Nadu",
+    "population": 847387,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.7047,
+     10.7905
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bhubaneswar",
+    "state": "Odisha",
+    "population": 843402,
+    "tier": "large,capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.8245,
+     20.2961
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Salem",
+    "state": "Tamil Nadu",
+    "population": 829267,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.146,
+     11.6643
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Thiruvananthapuram",
+    "state": "Kerala",
+    "population": 743691,
+    "tier": "large,capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.9366,
+     8.5241
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bhiwandi",
+    "state": "Maharashtra",
+    "population": 711329,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.0629,
+     19.3002
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Gorakhpur",
+    "state": "Uttar Pradesh",
+    "population": 673446,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     83.3732,
+     26.7606
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Guntur",
+    "state": "Andhra Pradesh",
+    "population": 647508,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     80.4365,
+     16.3067
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Amravati",
+    "state": "Maharashtra",
+    "population": 647057,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.7796,
+     20.9374
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bikaner",
+    "state": "Rajasthan",
+    "population": 644406,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.3119,
+     28.0229
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Jamshedpur",
+    "state": "Jharkhand",
+    "population": 631364,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     86.2029,
+     22.8046
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bhilai",
+    "state": "Chhattisgarh",
+    "population": 625700,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.4285,
+     21.209
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Warangal",
+    "state": "Telangana",
+    "population": 615998,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.5941,
+     17.9689
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Cuttack",
+    "state": "Odisha",
+    "population": 610189,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.883,
+     20.4625
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kochi",
+    "state": "Kerala",
+    "population": 602046,
+    "tier": "large,industrial,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.2673,
+     9.9312
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bhavnagar",
+    "state": "Gujarat",
+    "population": 593368,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.1519,
+     21.7645
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Dehradun",
+    "state": "Uttarakhand",
+    "population": 569578,
+    "tier": "large,capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.0322,
+     30.3165
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Durgapur",
+    "state": "West Bengal",
+    "population": 566517,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     87.3119,
+     23.5204
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Asansol",
+    "state": "West Bengal",
+    "population": 563917,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     86.9524,
+     23.6739
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kolhapur",
+    "state": "Maharashtra",
+    "population": 549236,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     74.2433,
+     16.705
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Ajmer",
+    "state": "Rajasthan",
+    "population": 542321,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     74.6399,
+     26.4499
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kalaburagi",
+    "state": "Karnataka",
+    "population": 533587,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.8343,
+     17.3297
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Ujjain",
+    "state": "Madhya Pradesh",
+    "population": 515215,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     75.7885,
+     23.1765
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Siliguri",
+    "state": "West Bengal",
+    "population": 513264,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     88.3953,
+     26.7271
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Jammu",
+    "state": "Jammu and Kashmir",
+    "population": 502197,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     74.857,
+     32.7266
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Nellore",
+    "state": "Andhra Pradesh",
+    "population": 499575,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.9865,
+     14.4426
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Mangaluru",
+    "state": "Karnataka",
+    "population": 488968,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     74.856,
+     12.9141
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Belagavi",
+    "state": "Karnataka",
+    "population": 488157,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     74.4977,
+     15.8497
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Jamnagar",
+    "state": "Gujarat",
+    "population": 479920,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     70.0577,
+     22.4707
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Tirunelveli",
+    "state": "Tamil Nadu",
+    "population": 473637,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.7567,
+     8.7139
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Gaya",
+    "state": "Bihar",
+    "population": 468614,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     84.9994,
+     24.7955
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Udaipur",
+    "state": "Rajasthan",
+    "population": 451100,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.7125,
+     24.5854
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kozhikode",
+    "state": "Kerala",
+    "population": 431560,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     75.7804,
+     11.2588
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kurnool",
+    "state": "Andhra Pradesh",
+    "population": 430214,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.0373,
+     15.8281
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bokaro",
+    "state": "Jharkhand",
+    "population": 414820,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     86.1511,
+     23.6693
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Ballari",
+    "state": "Karnataka",
+    "population": 410445,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.9214,
+     15.1394
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Patiala",
+    "state": "Punjab",
+    "population": 406192,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.3869,
+     30.3398
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bhagalpur",
+    "state": "Bihar",
+    "population": 398138,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     86.9718,
+     25.2445
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Agartala",
+    "state": "Tripura",
+    "population": 400004,
+    "tier": "large,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     91.2868,
+     23.8315
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Muzaffarnagar",
+    "state": "Uttar Pradesh",
+    "population": 392768,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.7085,
+     29.4727
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Latur",
+    "state": "Maharashtra",
+    "population": 382940,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.5604,
+     18.4088
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Rohtak",
+    "state": "Haryana",
+    "population": 374292,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.6066,
+     28.8955
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Korba",
+    "state": "Chhattisgarh",
+    "population": 363390,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.7501,
+     22.3595
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Muzaffarpur",
+    "state": "Bihar",
+    "population": 354462,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.3906,
+     26.1225
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Mathura",
+    "state": "Uttar Pradesh",
+    "population": 349909,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.6737,
+     27.4924
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kollam",
+    "state": "Kerala",
+    "population": 348657,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.6141,
+     8.8932
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bilaspur",
+    "state": "Chhattisgarh",
+    "population": 331030,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.1409,
+     22.0797
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Shivamogga",
+    "state": "Karnataka",
+    "population": 322650,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     75.5681,
+     13.9299
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Thrissur",
+    "state": "Kerala",
+    "population": 315957,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.2144,
+     10.5276
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kakinada",
+    "state": "Andhra Pradesh",
+    "population": 312538,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     82.2475,
+     16.9891
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Nizamabad",
+    "state": "Telangana",
+    "population": 311152,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.0941,
+     18.6725
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Tumakuru",
+    "state": "Karnataka",
+    "population": 302143,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.1139,
+     13.3392
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Hisar",
+    "state": "Haryana",
+    "population": 301383,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     75.7217,
+     29.1492
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bihar Sharif",
+    "state": "Bihar",
+    "population": 297268,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.5236,
+     25.1988
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Darbhanga",
+    "state": "Bihar",
+    "population": 296039,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.8918,
+     26.1542
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Panipat",
+    "state": "Haryana",
+    "population": 294292,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.9635,
+     29.3909
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Aizawl",
+    "state": "Mizoram",
+    "population": 293416,
+    "tier": "large,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     92.7176,
+     23.7271
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Dewas",
+    "state": "Madhya Pradesh",
+    "population": 289550,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.0553,
+     22.9623
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Tirupati",
+    "state": "Andhra Pradesh",
+    "population": 287482,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.4192,
+     13.6288
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Karnal",
+    "state": "Haryana",
+    "population": 286827,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.9905,
+     29.6857
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bathinda",
+    "state": "Punjab",
+    "population": 285788,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     74.9455,
+     30.211
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Satna",
+    "state": "Madhya Pradesh",
+    "population": 280222,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     80.8322,
+     24.6005
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Sagar",
+    "state": "Madhya Pradesh",
+    "population": 273296,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.7378,
+     23.8388
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Rourkela",
+    "state": "Odisha",
+    "population": 272721,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     84.8536,
+     22.2604
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Durg",
+    "state": "Chhattisgarh",
+    "population": 268806,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.2849,
+     21.1901
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Imphal",
+    "state": "Manipur",
+    "population": 268243,
+    "tier": "large,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     93.9368,
+     24.817
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Karimnagar",
+    "state": "Telangana",
+    "population": 261185,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.1288,
+     18.4386
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Anantapur",
+    "state": "Andhra Pradesh",
+    "population": 261004,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.6006,
+     14.6819
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Puducherry",
+    "state": "Puducherry",
+    "population": 244377,
+    "tier": "large,capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.8083,
+     11.9416
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Rewa",
+    "state": "Madhya Pradesh",
+    "population": 235654,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     81.3037,
+     24.5364
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Haridwar",
+    "state": "Uttarakhand",
+    "population": 228832,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.1642,
+     29.9457
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Nagercoil",
+    "state": "Tamil Nadu",
+    "population": 224849,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.4338,
+     8.179
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Thanjavur",
+    "state": "Tamil Nadu",
+    "population": 222943,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.1378,
+     10.787
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Secunderabad",
+    "state": "Telangana",
+    "population": 217910,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.4983,
+     17.4399
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Panchkula",
+    "state": "Haryana",
+    "population": 211355,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.8606,
+     30.6942
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Puri",
+    "state": "Odisha",
+    "population": 201026,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.8312,
+     19.8135
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Gandhinagar",
+    "state": "Gujarat",
+    "population": 206167,
+    "tier": "large,capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.6369,
+     23.2156
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Deoghar",
+    "state": "Jharkhand",
+    "population": 203123,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     86.6961,
+     24.4823
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Anand",
+    "state": "Gujarat",
+    "population": 198282,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.9289,
+     22.5645
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Shimla",
+    "state": "Himachal Pradesh",
+    "population": 169578,
+    "tier": "large,capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.1734,
+     31.1048
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Silchar",
+    "state": "Assam",
+    "population": 172830,
+    "tier": "large"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     92.7789,
+     24.8333
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kohima",
+    "state": "Nagaland",
+    "population": 115000,
+    "tier": "capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     94.1086,
+     25.6751
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Shillong",
+    "state": "Meghalaya",
+    "population": 354325,
+    "tier": "large,capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     91.8933,
+     25.5788
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Dimapur",
+    "state": "Nagaland",
+    "population": 122834,
+    "tier": "large,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     93.7266,
+     25.9091
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Itanagar",
+    "state": "Arunachal Pradesh",
+    "population": 59490,
+    "tier": "capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     93.6053,
+     27.0844
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Gangtok",
+    "state": "Sikkim",
+    "population": 100286,
+    "tier": "capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     88.6065,
+     27.3389
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Port Blair",
+    "state": "Andaman and Nicobar Islands",
+    "population": 108058,
+    "tier": "capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     92.7265,
+     11.6234
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Leh",
+    "state": "Ladakh",
+    "population": 30870,
+    "tier": "capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     77.5848,
+     34.1642
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Panaji",
+    "state": "Goa",
+    "population": 114759,
+    "tier": "capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.8278,
+     15.4909
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Silvassa",
+    "state": "Dadra and Nagar Haveli and Daman and Diu",
+    "population": 92600,
+    "tier": "capital,industrial"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     73.0169,
+     20.2766
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kavaratti",
+    "state": "Lakshadweep",
+    "population": 11221,
+    "tier": "capital,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     72.642,
+     10.5669
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Rishikesh",
+    "state": "Uttarakhand",
+    "population": 102138,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     78.2676,
+     30.0869
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Jaisalmer",
+    "state": "Rajasthan",
+    "population": 65471,
+    "tier": "tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     70.9083,
+     26.9157
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Alappuzha",
+    "state": "Kerala",
+    "population": 174176,
+    "tier": "large,tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     76.3388,
+     9.4981
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Darjeeling",
+    "state": "West Bengal",
+    "population": 118805,
+    "tier": "tourist"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     88.2663,
+     27.041
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Amaravati",
+    "state": "Andhra Pradesh",
+    "population": 103000,
+    "tier": "capital"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     80.3572,
+     16.573
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+  "model": "XGBoost",
+  "target": "target_max_heat_index_72h",
+  "train_period": "2022-2024",
+  "test_period": "2025",
+  "training_rows": 3934950,
+  "testing_rows": 1313850,
+  "features": 61,
+  "mae_c": 1.1892279432801953,
+  "rmse_c": 1.6055110295782649,
+  "r2": 0.9493195734847695,
+  "within_1c_percent": 53.89283403737109,
+  "within_2c_percent": 82.53552536438711,
+  "within_3c_percent": 93.63032309624386,
+  "extreme_precision": 0.7942408357811488,
+  "extreme_recall": 0.8434849832759029
+}

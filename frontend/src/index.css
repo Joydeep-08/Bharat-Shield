@@ -1,0 +1,117 @@
+/* =========================================================
+   BHARAT-SHIELD — GLOBAL TOKENS
+   A national instrument, not a weather app: dark control-room
+   base, mono readouts for data, geometric display type for
+   command headings, saffron used only as the single brand mark.
+========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  /* ---- surfaces ---- */
+  --bg: #05070b;
+  --panel: #0a0e15;
+  --panel-2: #0d121a;
+  --border: #1b2431;
+  --border-strong: #2a3644;
+
+  /* ---- text ---- */
+  --text: #c7cfdb;
+  --text-dim: #626c7a;
+  --text-h: #f2f5f9;
+
+  /* ---- brand ---- */
+  --saffron: #ff9f43;
+  --saffron-dim: rgba(255, 159, 67, 0.14);
+
+  /* ---- risk scale (semantic — do not repurpose) ---- */
+  --extreme: #ef4444;
+  --extreme-bg: #2a0a0a;
+  --high: #f97316;
+  --high-bg: #291207;
+  --moderate: #eab308;
+  --moderate-bg: #241c05;
+  --low: #22c55e;
+  --low-bg: #06210f;
+
+  /* ---- type ---- */
+  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+
+  color-scheme: dark;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  color: var(--text-h);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--saffron-dim);
+  color: var(--text-h);
+}
+
+/* visible keyboard focus everywhere — this is a public-safety tool */
+:focus-visible {
+  outline: 2px solid var(--saffron);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* numeric / telemetry readouts use the mono face throughout the app */
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
