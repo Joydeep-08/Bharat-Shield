@@ -78,6 +78,12 @@ with open(FEATURE_FILE, "r") as f:
 # ============================================================
 
 def fetch_weather(latitude, longitude, timezone="auto"):
+    """
+    Fetch weather for a single location.
+
+    Kept for single-city prediction/testing.
+    Bulk refresh uses fetch_weather_batch().
+    """
 
     url = "https://api.open-meteo.com/v1/forecast"
 
@@ -95,23 +101,87 @@ def fetch_weather(latitude, longitude, timezone="auto"):
             "pressure_msl",
         ]),
 
-        # 4 days historical + 3 days forecast
         "past_days": 4,
         "forecast_days": 3,
-
         "timezone": timezone,
     }
 
     response = requests.get(
         url,
         params=params,
-        timeout=30
+        timeout=60
     )
 
     response.raise_for_status()
 
     return response.json()
 
+
+def fetch_weather_batch(cities, timezone="auto"):
+    """
+    Fetch weather for multiple cities in a single Open-Meteo request.
+
+    Open-Meteo supports comma-separated latitude/longitude values
+    and returns one weather object per requested location.
+    """
+
+    if not cities:
+        return []
+
+    url = "https://api.open-meteo.com/v1/forecast"
+
+    latitudes = ",".join(
+        str(city["latitude"])
+        for city in cities
+    )
+
+    longitudes = ",".join(
+        str(city["longitude"])
+        for city in cities
+    )
+
+    params = {
+        "latitude": latitudes,
+        "longitude": longitudes,
+
+        "hourly": ",".join([
+            "temperature_2m",
+            "relative_humidity_2m",
+            "dew_point_2m",
+            "apparent_temperature",
+            "wind_speed_10m",
+            "shortwave_radiation",
+            "pressure_msl",
+        ]),
+
+        "past_days": 4,
+        "forecast_days": 3,
+        "timezone": timezone,
+    }
+
+    response = requests.get(
+        url,
+        params=params,
+        timeout=120
+    )
+
+    response.raise_for_status()
+
+    data = response.json()
+
+    # Multiple coordinates return a list.
+    if not isinstance(data, list):
+        raise ValueError(
+            "Open-Meteo batch response was not a list."
+        )
+
+    if len(data) != len(cities):
+        raise ValueError(
+            f"Open-Meteo returned {len(data)} locations "
+            f"for {len(cities)} requested cities."
+        )
+
+    return data
 
 # ============================================================
 # BUILD FEATURES
@@ -362,13 +432,14 @@ def build_live_features(weather, latitude, longitude):
 # ============================================================
 # PREDICT
 # ============================================================
+def predict_city(latitude, longitude, weather=None):
 
-def predict_city(latitude, longitude):
+    if weather is None:
 
-    weather = fetch_weather(
-        latitude,
-        longitude
-    )
+        weather = fetch_weather(
+            latitude,
+            longitude
+        )
 
     df = build_live_features(
         weather,

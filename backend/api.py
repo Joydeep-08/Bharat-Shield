@@ -5,7 +5,7 @@ from backend.inference import predict_city
 
 import json
 from pathlib import Path
-from concurrent.futures import ThreadPoolExecutor, as_completed
+
 from datetime import datetime, timezone
 import threading
 import time
@@ -319,7 +319,7 @@ def load_cities():
 # PREDICT ONE CITY
 # ============================================================
 
-def process_city(city):
+def process_city(city, weather=None):
 
     max_attempts = 4
 
@@ -328,9 +328,10 @@ def process_city(city):
         try:
 
             prediction = predict_city(
-                city["latitude"],
-                city["longitude"]
-            )
+    city["latitude"],
+    city["longitude"],
+    weather=weather
+)
 
             # ------------------------------------------------
             # CURRENT CONDITIONS
@@ -473,6 +474,7 @@ def refresh_city_cache():
 
     global CITY_CACHE
     global CACHE_TIME
+    global REFRESH_RUNNING
 
     # Only one refresh at a time
     if not REFRESH_LOCK.acquire(
@@ -488,53 +490,158 @@ def refresh_city_cache():
 
     try:
 
+        with REFRESH_STATE_LOCK:
+            REFRESH_RUNNING = True
+
         cities = load_cities()
 
         results = []
 
         print(
             f"[BHARAT-SHIELD] "
-            f"Refreshing {len(cities)} cities..."
+            f"Refreshing {len(cities)} cities "
+            f"using batched weather requests..."
         )
 
         start = time.time()
 
-        # Moderate concurrency to avoid
-        # hammering Open-Meteo.
-        with ThreadPoolExecutor(
-            max_workers=2
-        ) as executor:
+        # ----------------------------------------------------
+        # BATCH SIZE
+        #
+        # 150 cities -> 3 requests of 50 cities
+        # instead of 150 individual requests.
+        # ----------------------------------------------------
 
-            futures = {
+        BATCH_SIZE = 50
 
-                executor.submit(
-                    process_city,
-                    city
-                ): city
+        for batch_start in range(
+            0,
+            len(cities),
+            BATCH_SIZE
+        ):
 
-                for city in cities
-            }
+            batch = cities[
+                batch_start:
+                batch_start + BATCH_SIZE
+            ]
 
-            for future in as_completed(
-                futures
-            ):
+            batch_number = (
+                batch_start // BATCH_SIZE
+            ) + 1
 
-                city = futures[future]
+            total_batches = (
+                (len(cities) + BATCH_SIZE - 1)
+                // BATCH_SIZE
+            )
+
+            print(
+                f"[BHARAT-SHIELD] "
+                f"Weather batch "
+                f"{batch_number}/{total_batches} "
+                f"({len(batch)} cities)..."
+            )
+
+            weather_batch = None
+
+            # ------------------------------------------------
+            # BATCH RETRIES
+            # ------------------------------------------------
+
+            for attempt in range(4):
 
                 try:
 
+                    from backend.inference import (
+                        fetch_weather_batch
+                    )
+
+                    weather_batch = (
+                        fetch_weather_batch(
+                            batch
+                        )
+                    )
+
+                    break
+
+                except Exception as e:
+
+                    if (
+                        "429" in str(e)
+                        and attempt < 3
+                    ):
+
+                        wait_time = (
+                            10 * (attempt + 1)
+                        )
+
+                        print(
+                            f"[RETRY] "
+                            f"Weather batch "
+                            f"{batch_number} "
+                            f"rate limited. "
+                            f"Retrying in "
+                            f"{wait_time}s..."
+                        )
+
+                        time.sleep(
+                            wait_time
+                        )
+
+                    else:
+
+                        print(
+                            f"[ERROR] "
+                            f"Weather batch "
+                            f"{batch_number}: "
+                            f"{e}"
+                        )
+
+                        weather_batch = None
+
+                        break
+
+            # ------------------------------------------------
+            # PROCESS BATCH
+            # ------------------------------------------------
+
+            if weather_batch is None:
+
+                print(
+                    f"[WARN] "
+                    f"Skipping weather batch "
+                    f"{batch_number}."
+                )
+
+                continue
+
+            for city, weather in zip(
+                batch,
+                weather_batch
+            ):
+
+                try:
+
+                    result = process_city(
+                        city,
+                        weather=weather
+                    )
+
                     results.append(
-                        future.result()
+                        result
                     )
 
                 except Exception as e:
 
                     print(
                         f"[ERROR] "
-                        f"{city['name']}: {e}"
+                        f"{city['name']}: "
+                        f"{e}"
                     )
 
-        # Preserve original geographic ordering
+        # ----------------------------------------------------
+        # PRESERVE GEOGRAPHIC ORDER
+        # ----------------------------------------------------
+
         order = {
 
             city["name"]: i
@@ -552,8 +659,10 @@ def refresh_city_cache():
             )
         )
 
-        # Only replace cache if refresh
-        # returned a healthy number of cities.
+        # ----------------------------------------------------
+        # ONLY COMMIT HEALTHY REFRESH
+        # ----------------------------------------------------
+
         if len(results) >= 140:
 
             CITY_CACHE = results
@@ -568,20 +677,31 @@ def refresh_city_cache():
             print(
                 f"[BHARAT-SHIELD] "
                 f"Live refresh complete: "
-                f"{len(results)} cities "
-                f"in {elapsed}s"
+                f"{len(results)}/{len(cities)} "
+                f"cities in {elapsed}s."
             )
 
         else:
 
             print(
-                f"[WARNING] "
-                f"Refresh returned only "
-                f"{len(results)} cities. "
+                f"[BHARAT-SHIELD] "
+                f"Refresh incomplete: "
+                f"{len(results)}/{len(cities)} "
+                f"cities succeeded. "
                 f"Keeping previous cache."
             )
 
+    except Exception as e:
+
+        print(
+            "[BHARAT-SHIELD] "
+            f"Refresh failed: {e}"
+        )
+
     finally:
+
+        with REFRESH_STATE_LOCK:
+            REFRESH_RUNNING = False
 
         REFRESH_LOCK.release()
 
